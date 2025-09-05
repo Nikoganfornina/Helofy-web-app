@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { RegisterPage } from "./pages/RegisterPage";
+import { RegisterPage } from "./pages/registerPage";
 
 const App = () => {
   return (
