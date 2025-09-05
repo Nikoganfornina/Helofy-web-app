@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import "../Styles/register-style.scss";
-import "../Styles/alert-style.scss";
+import "../styles/register-style.scss";
+import "../styles/alert-style.scss";
 import React, { useState, useEffect, useRef } from "react";
 import LoadingOverlay from "../utils/loadingOverlay";
 import Alert from "../utils/alert";
