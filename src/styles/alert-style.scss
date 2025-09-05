@@ -1,0 +1,14 @@
+.custom-alert {
+  position: sticky;
+  top: max(8px, var(--safe-top));
+  z-index: 1000;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-align: center;
+
+  &.success { background: #103d22; color: #b9f6ca; border: 1px solid #1b6b3b; }
+  &.error   { background: #3d1010; color: #ffbcbc; border: 1px solid #6b1b1b; }
+  &.info    { background: #10243d; color: #c8e1ff; border: 1px solid #1b3a6b; }
+}
