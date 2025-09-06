@@ -92,118 +92,129 @@ export const RegisterPage = () => {
     }
   };
 
-  return (
-    <div className="safe-screen">
-      <div className="register-page">
-        {alert && <Alert message={alert.message} type={alert.type} />}
+ return (
+   <div className="safe-screen">
+     <div className="register-page">
+       <LoadingOverlay
+         visible={loading}
+         message={isLogin ? "Iniciando sesión..." : "Registrando usuario..."}
+       />
 
-        <LoadingOverlay
-          visible={loading}
-          message={isLogin ? "Iniciando sesión..." : "Registrando usuario..."}
-        />
+       <h1>{isLogin ? "Login en HeloFy" : "Registro en HeloFy"}</h1>
 
-        <h1>{isLogin ? "Login en HeloFy" : "Registro en HeloFy"}</h1>
+       <form className="form stack-12" onSubmit={handleSubmit} noValidate>
+         {!isLogin && (
+           <label className="input-group">
+             <span>Usuario</span>
+             <input
+               type="text"
+               placeholder="Tu usuario"
+               value={username}
+               onChange={(e) => setUsername(e.target.value)}
+               onKeyDown={handleKeyDown}
+               autoCapitalize="none"
+               autoCorrect="off"
+               autoComplete="username"
+               enterKeyHint="next"
+               required
+             />
+           </label>
+         )}
 
-        <form className="form stack-12" onSubmit={handleSubmit} noValidate>
-          {!isLogin && (
-            <label className="input-group">
-              <span>Usuario</span>
-              <input
-                type="text"
-                placeholder="Tu usuario"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                onKeyDown={handleKeyDown}
-                autoCapitalize="none"
-                autoCorrect="off"
-                autoComplete="username"
-                enterKeyHint="next"
-                required
-              />
-            </label>
-          )}
+         <label className="input-group">
+           <span>Correo electrónico</span>
+           <input
+             ref={emailRef}
+             type="email"
+             placeholder="tucorreo@email.com"
+             value={email}
+             onChange={(e) => setEmail(e.target.value)}
+             onKeyDown={handleKeyDown}
+             autoCapitalize="none"
+             autoCorrect="off"
+             autoComplete="email"
+             inputMode="email"
+             enterKeyHint="next"
+             required
+           />
+         </label>
 
-          <label className="input-group">
-            <span>Correo electrónico</span>
-            <input
-              ref={emailRef}
-              type="email"
-              placeholder="tucorreo@email.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onKeyDown={handleKeyDown}
-              autoCapitalize="none"
-              autoCorrect="off"
-              autoComplete="email"
-              inputMode="email"
-              enterKeyHint="next"
-              required
-            />
-          </label>
+         <label className="input-group">
+           <span>Contraseña</span>
+           <input
+             type="password"
+             placeholder="••••••••"
+             value={password}
+             onChange={(e) => setPassword(e.target.value)}
+             onKeyDown={handleKeyDown}
+             autoCapitalize="none"
+             autoCorrect="off"
+             autoComplete={isLogin ? "current-password" : "new-password"}
+             enterKeyHint={isLogin ? "go" : "next"}
+             required
+           />
+         </label>
 
-          <label className="input-group">
-            <span>Contraseña</span>
-            <input
-              type="password"
-              placeholder="••••••••"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onKeyDown={handleKeyDown}
-              autoCapitalize="none"
-              autoCorrect="off"
-              autoComplete={isLogin ? "current-password" : "new-password"}
-              enterKeyHint={isLogin ? "go" : "next"}
-              required
-            />
-          </label>
+         {!isLogin && (
+           <label className="input-group">
+             <span>Confirmar contraseña</span>
+             <input
+               type="password"
+               placeholder="••••••••"
+               value={confirmPassword}
+               onChange={(e) => setConfirmPassword(e.target.value)}
+               onKeyDown={handleKeyDown}
+               autoCapitalize="none"
+               autoCorrect="off"
+               autoComplete="new-password"
+               enterKeyHint="go"
+               required
+             />
+           </label>
+         )}
 
-          {!isLogin && (
-            <label className="input-group">
-              <span>Confirmar contraseña</span>
-              <input
-                type="password"
-                placeholder="••••••••"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                onKeyDown={handleKeyDown}
-                autoCapitalize="none"
-                autoCorrect="off"
-                autoComplete="new-password"
-                enterKeyHint="go"
-                required
-              />
-            </label>
-          )}
+         {capsLockOn && (
+           <div className="caps-lock-warning" role="status" aria-live="polite">
+             ⚠️ Mayúsculas activadas
+           </div>
+         )}
 
-          {capsLockOn && (
-            <div className="caps-lock-warning" role="status" aria-live="polite">
-              ⚠️ Mayúsculas activadas
-            </div>
-          )}
+         <button className="primary" type="submit" disabled={loading}>
+           {isLogin ? "Iniciar sesión" : "Registrarse"}
+         </button>
+       </form>
 
-          <button className="primary" type="submit" disabled={loading}>
-            {isLogin ? "Iniciar sesión" : "Registrarse"}
-          </button>
-        </form>
+       <div className="switch-login">
+         {isLogin ? (
+           <span>
+             ¿No tienes cuenta?{" "}
+             <button type="button" onClick={() => setIsLogin(false)} disabled={loading}>
+               Créala
+             </button>
+           </span>
+         ) : (
+           <span>
+             ¿Ya tienes cuenta?{" "}
+             <button type="button" onClick={() => setIsLogin(true)} disabled={loading}>
+               Inicia sesión
+             </button>
+           </span>
+         )}
+       </div>
+     </div>
 
-        <div className="switch-login">
-          {isLogin ? (
-            <span>
-              ¿No tienes cuenta?{" "}
-              <button type="button" onClick={() => setIsLogin(false)} disabled={loading}>
-                Créala
-              </button>
-            </span>
-          ) : (
-            <span>
-              ¿Ya tienes cuenta?{" "}
-              <button type="button" onClick={() => setIsLogin(true)} disabled={loading}>
-                Inicia sesión
-              </button>
-            </span>
-          )}
-        </div>
-      </div>
+     {alert && (
+       <div className={`alert-wrapper ${alert.type}`}>
+         <Alert message={alert.message} />
+       </div>
+     )}
+
+    <div className="footer">
+      <p>© 2025 HeloFy. Ser libre es sonar distinto.</p>
     </div>
-  );
+   </div>
+ );
+
+
+
 };

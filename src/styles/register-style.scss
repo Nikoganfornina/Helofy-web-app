@@ -1,47 +1,46 @@
-/* ===== Desktop: registro centrado con fondo ===== */
-:root {
-  --radius: 12px;
-}
+/* ===== Variables (Sass) ===== */
+$radius: 12px;
+$primary-blue: #378ee6;
+$primary-blue-hover: lighten($primary-blue, 10%);
 
+/* ===== Reset / base ===== */
 html, body, #root {
-  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh; /* mejor en móvil/teclado */
   margin: 0;
   padding: 0;
 }
 
-/* Fondo global */
+* { box-sizing: border-box; }
+
 body {
-  background: #0f0f10 url("../assets/register-back.svg") ;
-  background-repeat: no-repeat;
-  background-position: center ;
-  background-size: cover ;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Solo fondo y tipografía */
+  background: #0f0f10 url("../assets/register-back.svg") no-repeat center center / cover;
   font-family: sans-serif;
   color: #fff;
 }
 
-/* Reset box-sizing */
-* { box-sizing: border-box; }
-
-/* Formulario centrado */
+/* ===== Contenedor que CENTRA ===== */
 .safe-screen {
   width: 100%;
-  max-width: 100%;   /* que no limite el ancho */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  /* Grid = centrado fiable en ambos ejes */
+  display: grid;
+  place-items: center;
+
+  /* padding lateral para respiración; no afecta al centrado */
+  padding: 0 24px;
 }
 
-/* Separadores verticales */
-.stack-12 > * + * { margin-top: 12px; }
-
+/* ===== Recuadro principal ===== */
 .register-page {
-  width: 402px;
+  width: clamp(320px, 92vw, 402px);
+  margin: 0 auto;             /* airbag por si algo rompe el centrado */
   padding: 24px;
-  border-radius: var(--radius);
+  border-radius: $radius;
   background: rgba(20, 20, 22, 0.92);
   border: 1px solid #242428;
   box-shadow: 0 8px 24px rgba(0,0,0,0.6);
@@ -80,8 +79,8 @@ body {
 
       &::placeholder { color: #8b8b8b; }
       &:focus {
-        border-color: #4a7cff;
-        box-shadow: 0 0 0 3px rgba(74,124,255,0.2);
+        border-color: $primary-blue;
+        box-shadow: 0 0 0 3px rgba(55, 142, 230, 0.3);
         outline: none;
       }
     }
@@ -102,13 +101,13 @@ body {
     padding: 14px;
     border-radius: 12px;
     border: none;
-    background: #4a7cff;
+    background: $primary-blue;
     color: white;
     font-weight: 700;
     cursor: pointer;
     transition: background .2s;
 
-    &:hover:not(:disabled) { background: #3a69e6; }
+    &:hover:not(:disabled) { background: $primary-blue-hover; }
     &:disabled { opacity: 0.6; cursor: default; }
   }
 
@@ -118,12 +117,63 @@ body {
 
     button {
       background: none;
-      color: #a7c1ff;
+      color: $primary-blue;
       border: none;
       text-decoration: underline;
       cursor: pointer;
       font-weight: 600;
-      &:hover { color: #d0e0ff; }
+      &:hover { color: $primary-blue-hover; }
     }
+  }
+}
+
+/* ===== Alerta global (flota abajo, no afecta al layout) ===== */
+.alert-wrapper {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 2.5vh;
+  max-width: min(90%, 560px);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  animation: fadeInUp .3s ease-out;
+  pointer-events: none;
+
+  &.success {
+    background: #0f2e1a;
+    border: 1px solid #2c7a34;
+    color: #a7f3b0;
+  }
+  &.error {
+    background: #2e0f0f;
+    border: 1px solid #7a2c2c;
+    color: #f3a7a7;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  body {
+    background: linear-gradient(160deg, #0a0a0d 0%, $primary-blue 100%);
+  }
+
+  .register-page {
+    padding: 16px;
+    border-radius: 10px;
+    background: rgba(15, 20, 30, 0.95);
+    border: 2px solid #2a3c66;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+
+    h1 { font-size: 22px; }
+    .primary { padding: 12px; font-size: 15px; }
   }
 }
