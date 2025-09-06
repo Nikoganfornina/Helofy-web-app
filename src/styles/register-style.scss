@@ -1,7 +1,8 @@
 /* ===== Variables (Sass) ===== */
 $radius: 12px;
+@use "sass:color";
 $primary-blue: #378ee6;
-$primary-blue-hover: lighten($primary-blue, 10%);
+$primary-blue-hover: color.adjust($primary-blue, $lightness: 10%);
 
 /* ===== Reset / base ===== */
 html, body, #root {
