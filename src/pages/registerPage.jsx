@@ -88,7 +88,7 @@ export const RegisterPage = () => {
           setConfirmPassword("");
         } else {
             setAlert({ message: "Sesión iniciada con exito", type: "success" });
-            
+
         }
       }
     } catch (err) {
